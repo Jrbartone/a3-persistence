@@ -50,7 +50,7 @@ function syncAllData(){
  if(dataset !== undefined){
     console.log("sync...")
     dataset.forEach(function(data) {
-    appdata.push(JSON.stringify({"word":data.word,"lang":data.lang,"translation":data.translation,"action":data.action,"id":data.id,"user":data.user})); // adds their info to the dbUsers value
+    appdata.push(({"word":data.word,"lang":data.lang,"translation":data.translation,"action":data.action,"id":data.id,"user":data.user})); // adds their info to the dbUsers value
   });
   return appdata
  }
@@ -95,6 +95,7 @@ app.get('/', function(request, response) {
 });
 
 app.get('/index.html', function(request, response) {
+  appdata = syncAllData();
   response.sendFile(__dirname + '/views/index.html');
 });
 

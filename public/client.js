@@ -3,6 +3,9 @@
   document.getElementById("editScreen").style.display = "none"
  let localAppData = []
  let currentUser = ""
+ 
+ 
+ function langFine
 
     
   const submit = function( e ) {
@@ -26,6 +29,7 @@
       if (user[0] !== ""){
         currentUser = user[0] 
         document.getElementById("login").innerHTML = "Logout"
+        document.getElementById("t").innerHTML = user[0] + "'s Travel Dictionary App"
         document.getElementById("login").href = "/"
       }
     });
@@ -161,7 +165,7 @@
     }).then(function(allData){ 
       for(let i = 0; i < allData.length; i++ ){
         if(currentUser == allData[i].user){
-          let json = { word: allData[i].word , translation: allData[i].translation, lang:allData[i].lang, action: "translate", id: allData[i].id, user: allData[i].user, pass: allData[i].pass}
+          let json = { word: allData[i].word , translation: allData[i].translation, lang:allData[i].lang, action: allData[i].action, id: allData[i].id, user: allData[i].user, pass: allData[i].pass}
           let body = JSON.stringify(json)
           let data = json
          
@@ -239,7 +243,7 @@
 
                     tdNode.appendChild(document.createTextNode(data.word));
                     tdNode2.appendChild(document.createTextNode(data.translation));
-                    tdNode3.appendChild(document.createTextNode(selectedText));
+                    tdNode3.appendChild(document.createTextNode(data.lang));
                     tdNode4.appendChild(editButton);
                     tdNode4.appendChild(deleteButton);
                     trNode.appendChild(tdNode);
