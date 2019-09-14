@@ -5,7 +5,49 @@
  let currentUser = ""
  
  
- function langFine
+ function langFinder(str){
+   switch(str){
+     case "en-sq":
+       return "Albanian"
+       break;
+    case "en-hy":
+       return "Armenian"
+       break;
+    case "en-ar":
+       return "Arabic"
+       break;
+    case "en-bg":
+       return "Bulgarian"
+       break;
+    case "en-zh":
+       return "Chinese"
+       break;
+    case "en-nl":
+       return "Dutch"
+       break;
+    case "en-el":
+       return "Greek"
+       break;
+    case "en-ka":
+       return "Georgian"
+       break;
+    case "en-de":
+       return "German"
+       break;
+    case "en-it":
+       return "Italian"
+       break;
+    case "en-es":
+       return "Spanish"
+       break;
+    case "en-pl":
+       return "Polish"
+       break;
+    case "en-ru":
+       return "Russian"
+       break; 
+   }
+ }
 
     
   const submit = function( e ) {
@@ -29,7 +71,8 @@
       if (user[0] !== ""){
         currentUser = user[0] 
         document.getElementById("login").innerHTML = "Logout"
-        document.getElementById("t").innerHTML = user[0] + "'s Travel Dictionary App"
+        let str = user[0] + "'s Travel Dictionary App"
+        document.getElementById("t").innerHTML = str
         document.getElementById("login").href = "/"
       }
     });
@@ -243,7 +286,7 @@
 
                     tdNode.appendChild(document.createTextNode(data.word));
                     tdNode2.appendChild(document.createTextNode(data.translation));
-                    tdNode3.appendChild(document.createTextNode(data.lang));
+                    tdNode3.appendChild(document.createTextNode(langFinder(data.lang)));
                     tdNode4.appendChild(editButton);
                     tdNode4.appendChild(deleteButton);
                     trNode.appendChild(tdNode);
