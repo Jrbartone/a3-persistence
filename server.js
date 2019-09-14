@@ -94,7 +94,7 @@ app.post('/submit', function (req, res) {
         let id = body.id
         console.log(body.id)
         for (i = 0; i < appdata.length; i++){
-          if (appdata[i].includes("" + id)){
+          if (JSON.stringify(appdata[i]).includes("" + id)){
             appdata.splice(i, 1)
           }
         }
@@ -107,6 +107,7 @@ app.post('/submit', function (req, res) {
         var editWord = ""
         for (k = 0; k < appdata.length; k++){
           if (JSON.stringify(appdata[k]).includes("" + j)){
+            console.log("appdata:: " + appdata[])
             editWord = JSON.parse(appdata[k]).word
             appdata.splice(k, 1)
           }

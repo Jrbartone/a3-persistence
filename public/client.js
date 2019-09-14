@@ -1,7 +1,6 @@
   
   let count = 0;
   document.getElementById("editScreen").style.display = "none"
-    
  let localAppData = []
  let currentUser = ""
 
@@ -259,7 +258,7 @@
     
     });
     
-    
+
     
     const button = document.getElementById( 'translate' )
     button.onclick = submit
