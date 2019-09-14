@@ -1,5 +1,6 @@
 
 document.getElementById("bad").style.display = "none"
+document.getElementById("bad").style.alignContent = "center"
 
 function logIn(){
   let user = document.querySelector( '#username' )
@@ -12,16 +13,15 @@ function logIn(){
       method:'POST',
       body 
     }).then(function(response){
-      response = response.json();
-      document.getElementById('login').innerHTML = response
-      if (response == "OK"){
-        location.href='/index.html'
-      }
-      else if (response == "BAD"){
-       document.getElementById("bad").style.display = "inline"
-      }
+       return response.text();
+      }).then(function (r){
+        if (r == "OK"){
+          location.href='/index.html'
+        }
+        else if (r == "BAD"){
+         document.getElementById("bad").style.display = "inline"
+        }
   })
-  
 }
 
 window.onload = function() {

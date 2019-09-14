@@ -138,13 +138,13 @@ app.post('/login', function (req, res) {
         }
         else{
           console.log("bad login")
-          res.end("BAD")
+          res.send("BAD")
         }
       }
     }
     else{
        console.log("bad login")
-       res.end("BAD")
+       res.send("BAD")
     }
   })
 })
