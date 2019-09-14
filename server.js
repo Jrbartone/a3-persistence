@@ -19,7 +19,7 @@ let appdata = []
 var FileSync = require('lowdb/adapters/FileSync')
 var adapter = new FileSync('.data/db.json')
 var db = low(adapter)
-appdata.push(entry)
+//appdata.push(entry)
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
@@ -41,10 +41,17 @@ function syncAllUsers(){
 function syncAllData(){
   appdata = []
   var dataset = db.get('data').value() // Find all users in the collection
+  if (dataset){
+    console.log("sync...")
   dataset.forEach(function(data) {
     appdata.push(JSON.stringify({"word":data.word,"lang":data.lang,"translation":data.translation,"action":data.action,"id":data.id,"user":data.user})); // adds their info to the dbUsers value
   });
   return appdata
+  }
+  else {
+    console.log("No data to sync yet")
+    return appdata
+  }
 }
 
 
@@ -99,7 +106,6 @@ app.get('/create.html', function(request, response) {
 // TRANSLATION SUBMISSION
 app.post('/submit', function (req, res) {
   //
-  appdata = syncAllData();
   let dataString = ''
   req.on( 'data', function( data ) {
       dataString += data 
@@ -110,6 +116,7 @@ app.post('/submit', function (req, res) {
     
     switch(body.action){
       case "translate":
+         appdata = syncAllData();
         console.log(appdata)
         console.log("translate")
         let payload = {word:body.word, lang: body.lang, translation: "", action: body.action, id:body.id, user:body.user};
@@ -125,18 +132,24 @@ app.post('/submit', function (req, res) {
           });
         break;
       case "delete":
+         appdata = syncAllData();
         console.log("delete")
         let i = 0;
         let id = body.id
         console.log(body.id)
         for (i = 0; i < appdata.length; i++){
           if (JSON.stringify(appdata[i]).includes("" + id)){
+             db.get('data')
+                .remove(appdata[i])
+                .write()
+              console.log("Data torched from the database");
             appdata.splice(i, 1)
           }
         }
         break;
         
       case "edit":
+         appdata = syncAllData();
         console.log("edit")
         let k = 0;
         let j = body.id
@@ -145,6 +158,10 @@ app.post('/submit', function (req, res) {
           if (JSON.stringify(appdata[k]).includes("" + j)){
             console.log("k" + appdata[k])
             editWord = appdata[k].word //this is undefined?????
+             db.get('data')
+                .remove(appdata[k])
+                .write()
+              console.log("Edit torched from the database");
             appdata.splice(k, 1)
           }
         }
@@ -156,7 +173,7 @@ app.post('/submit', function (req, res) {
              db.get('data')
                 .push(editedLoad)
                 .write()
-              console.log("New data inserted in the database");
+              console.log("New edit inserted in the database");
             appdata.push(editedLoad);
             console.log(appdata)
             res.end(JSON.stringify(editedLoad));
