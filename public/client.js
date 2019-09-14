@@ -190,7 +190,9 @@
         localAppData = []
         currentUser = user[0];
         document.getElementById("login").innerHTML = "Logout"
+        document.getElementById("t").innerHTML = currentUser + "'s Travel Dictionary App"
         document.getElementById("login").href = "/"
+
       }
     });
     
