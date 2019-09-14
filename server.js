@@ -109,12 +109,13 @@ app.post('/submit', function (req, res) {
         let editWord = ""
         for (k = 0; k < appdata.length; k++){
           if (JSON.stringify(appdata[k]).includes("" + j)){
-            editWord = appdata[k].word
+            console.log("k" + appdata[k])
+            editWord = appdata[k].word //this is undefined?????
             appdata.splice(k, 1)
           }
         }
         //console.log(editWord)
-        let editedLoad = {word:editWord, lang: body.lang, translation: "", action: body.action, id:body.id};
+        let editedLoad = {word:editWord, lang: body.lang, translation: "", action: body.action, id:body.id, user: body.user};
         translateWord(editWord, body.lang).then(function(retVal){
             editedLoad.translation += retVal;
             res.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
