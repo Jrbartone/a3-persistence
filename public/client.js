@@ -127,9 +127,9 @@
 
   window.onload = function() {
     //recieve session info here
-    
-    //clear tables
-    document.getElementById("results")
+
+    //clear tables    
+    rows = document.getElementsByTagName("tr").remove()
     
     fetch( '/queryLogin', {
       method:'POST', 
