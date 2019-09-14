@@ -129,7 +129,7 @@
     //recieve session info here
 
     //clear tables    
-    rows = document.getElementsByTagName("tr").remove()
+   
     
     fetch( '/queryLogin', {
       method:'POST', 
@@ -147,6 +147,11 @@
       }
     });
     
+     let rows = document.getElementsByTagName("tr")
+    for(let i = 0; i < rows.size; i++){
+      rows[i].remove()
+    }
+    
     
     fetch( '/userData', {
       method:'POST', 
@@ -156,15 +161,10 @@
     }).then(function(allData){ 
       for(let i = 0; i < allData.length; i++ ){
         if(currentUser == allData[i].user){
-          let json = { word: allData[i].word , lang:allData[i].lang, action: "translate", id: allData[i].id, user: allData[i].user, pass: allData[i].pass}
-          let body = JSON.stringify( json )
-          fetch( '/submit', {
-            method:'POST',
-            body 
-          })
-          .then( function( response ) {
-            return response.json();
-          }).then(function (data) {
+          let json = { word: allData[i].word , translation: allData[i].translation, lang:allData[i].lang, action: "translate", id: allData[i].id, user: allData[i].user, pass: allData[i].pass}
+          let body = JSON.stringify(json)
+          let data = json
+         
               let tdNode = document.createElement("td");
               let tdNode2 = document.createElement("td");
               let tdNode3 = document.createElement("td");
@@ -247,7 +247,7 @@
                     trNode.appendChild(tdNode3);
                     trNode.appendChild(tdNode4);
                     document.getElementById("results").appendChild(trNode);
-                })
+                
           } 
       }
       
