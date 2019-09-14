@@ -2,12 +2,12 @@
   let count = 0;
   document.getElementById("editScreen").style.display = "none"
     
+ let localAppData = []
     
   const submit = function( e ) {
     // prevent default form action from being carried out
     e.preventDefault()
     count = count + 1;
-    let localAppData = []
     let temp = count
     const inputword = document.querySelector( '#word' );
     const inputlang = document.querySelector('#lang');
@@ -145,6 +145,10 @@
     .then (function(guts){
       return guts.json();
     }).then(function(allData){ 
+      for(let i = 0; i < allData.length; i++ ){
+        let json = { word: allData[i].word , lang:inputlang.value, action: "translate", id: count, user: "", pass: ""}
+
+      }
       //get the shit out of all of the user data
       //for entry in localAppData{
       //  json = entry.word, entry.lang, entry.id etc

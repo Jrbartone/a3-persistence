@@ -1,6 +1,4 @@
 
-document.getElementById("bad").style.display = "none"
-document.getElementById("bad").style.alignContent = "center"
 
 function logIn(){
   let user = document.querySelector( '#username' )
@@ -19,7 +17,7 @@ function logIn(){
           location.href='/index.html'
         }
         else {
-         document.getElementById("bad").style.display = "inline"
+         document.getElementById("baddy").style.display = "inline"
         }
   })
 }
@@ -27,6 +25,8 @@ function logIn(){
 
 window.onload = function() {
     //recieve session info here
-    const button = document.getElementById( 'login' )
+  document.getElementById("baddy").style.display = "none"
+
+    const button = document.getElementById( 'loginButton' )
     button.onclick = logIn
   }

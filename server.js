@@ -145,8 +145,6 @@ app.post('/login', function (req, res) {
           console.log(" login")
           res.send("OK")
           //send all packets of user data
-          
-          
           return
         }
         else{
@@ -154,6 +152,9 @@ app.post('/login', function (req, res) {
           //res.send("BAD")
         }
       }
+       console.log("bad login")
+       res.send("BAD")
+      return
     }
     else{
        console.log("bad login")
@@ -193,6 +194,13 @@ app.post('/create', function (req, res) {
       return
     }
   })
+})
+
+
+app.post('/userData', function (req, res) {
+  let pack = JSON.stringify(appdata)
+  console.log(pack)
+  res.end(pack)
 })
 
 
