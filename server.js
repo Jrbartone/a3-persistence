@@ -10,7 +10,7 @@ const FileAsync = require('lowdb/adapters/FileAsync')
 const app = express();
 app.use(bodyParser.json())
 let currentSession = ["", ""]
-let appdata = []
+const appdata = []
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
@@ -56,7 +56,7 @@ app.get('/about.html', function(request, response) {
 
 // TRANSLATION SUBMISSION
 app.post('/submit', function (req, res) {
-   let dataString = ''
+  let dataString = ''
   req.on( 'data', function( data ) {
       dataString += data 
   })
@@ -65,6 +65,7 @@ app.post('/submit', function (req, res) {
     var translation = ""
     switch(body.action){
       case "translate":
+        console.log("translate")
         let payload = {word:body.word, lang: body.lang, translation: "", action: body.action, id:body.id};
         translateWord(body.word, body.lang).then(function(retVal){
             payload.translation += retVal;
@@ -72,9 +73,10 @@ app.post('/submit', function (req, res) {
             appdata.push(JSON.stringify(payload));
             res.end(JSON.stringify(payload));
           });
+        return;
         break;
       case "delete":
-        console.log(appdata)
+        console.log("delete")
         let i = 0;
         let id = body.id
         console.log(body.id)
@@ -83,11 +85,11 @@ app.post('/submit', function (req, res) {
             appdata.splice(i, 1)
           }
         }
-        console.log(appdata)
+        return;
         break;
         
       case "edit":
-        console.log(appdata)
+        console.log("edit")
         let k = 0;
         let j = body.id
         var editWord = ""
@@ -106,6 +108,7 @@ app.post('/submit', function (req, res) {
             console.log(appdata)
             res.end(JSON.stringify(editedLoad));
           });
+        return;
         break;
     }
   })

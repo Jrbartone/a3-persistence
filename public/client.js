@@ -12,8 +12,6 @@
     const inputlang = document.querySelector('#lang'),
           json = { word: inputword.value , lang:inputlang.value, action: "translate", id: count},
           body = JSON.stringify( json )
-          console.log(body)
-
     fetch( '/submit', {
       method:'POST',
       body 
@@ -38,11 +36,11 @@
         editButton.innerHTML = "Edit";
       
         deleteButton.onclick =  function deleteRow() {
+           let p=this.parentNode.parentNode;
+           p.parentNode.removeChild(p);
            json.action = "delete"
            json.id = temp;
            body = JSON.stringify( json )
-           var p=this.parentNode.parentNode;
-           p.parentNode.removeChild(p);
            fetch( '/submit', {
             method:'POST',
             body
