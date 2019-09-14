@@ -157,6 +157,37 @@ app.post('/login', function (req, res) {
   })
 })
 
+
+app.post('/create', function (req, res) {
+  console.log("creating acc")
+  let dataString = ''
+  req.on( 'data', function( data ) {
+      dataString += data 
+  })
+  req.on( 'end', function() {
+  let data = JSON.parse(dataString)
+  console.log(data)
+    if(allUsers.length > 0){
+      for (let i = 0; i < allUsers.length; i++){
+        let obj = JSON.parse(allUsers[i])
+        if (obj.user == data.user){
+          console.log(" login")
+          res.end("BAD")
+        }
+      }
+        data = JSON.stringify(data)
+        allUsers.push(data)
+        res.send("OK")
+    }
+    else{
+        data = JSON.stringify(data)
+        allUsers.push(data)
+        res.send("OK")
+    }
+  })
+})
+
+
 app.post('/queryLogin', function (req, res) {
   res.end(JSON.stringify(currentSession))
 })
