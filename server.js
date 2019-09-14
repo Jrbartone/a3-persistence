@@ -23,12 +23,19 @@ appdata.push(entry)
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
+db.defaults({ users: [
+      {"username":"admin", "password":"admin"}
+    ]
+  }).write();
+
 
 function syncAllUsers(){
+  allUsers = []
   var users = db.get('users').value() // Find all users in the collection
   users.forEach(function(user) {
-    allUsers.push([user.firstName,user.lastName]); // adds their info to the dbUsers value
+    allUsers.push(JSON.stringify({"user:" + user.username, "" + user.password])); // adds their info to the dbUsers value
   });
+  return allUsers
 }
 
 
@@ -145,8 +152,9 @@ app.post('/submit', function (req, res) {
 
 // HANDLE LOGIN
 app.post('/login', function (req, res) {
+  allUsers = syncAllUsers()
+  console.log(JSON.parse(allUsers))
   console.log("handlig log")
-  console.log(allUsers)
   let dataString = ''
   req.on( 'data', function( data ) {
       dataString += data 
@@ -202,16 +210,19 @@ app.post('/create', function (req, res) {
           return
         }
       }
-        data = JSON.stringify(data)
-        allUsers.push(data)
-         db.get('users')
-          .push({ firstName: request.query.fName, lastName: request.query.lName })
+        db.get('users')
+          .push({ username: data.user, password: data.pass })
           .write()
         console.log("New user inserted in the database");
-        response.sendStatus(200);
+        data = JSON.stringify(data)
+        allUsers.push(data)
         res.send("OK")
     }
     else{
+         db.get('users')
+          .push({ username: data.user, password: data.pass })
+          .write()
+        console.log("New user inserted in the database");
         data = JSON.stringify(data)
         allUsers.push(data)
         res.send("OK")
