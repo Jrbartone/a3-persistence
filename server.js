@@ -13,7 +13,7 @@ let currentSession = ["", ""]
 let allUsers = []
 const admin = {user:"admin", pass:"admin"}
 let me = JSON.stringify(admin)
-allUsers.push(me)
+//allUsers.push(me)
 let entry = {"word":"a","lang":"en-sq","translation":"një","action":"translate","id":1,"user":"admin"}
 let appdata = []
 var FileSync = require('lowdb/adapters/FileSync')
@@ -33,7 +33,7 @@ function syncAllUsers(){
   allUsers = []
   var users = db.get('users').value() // Find all users in the collection
   users.forEach(function(user) {
-    allUsers.push(JSON.stringify({"user:" + user.username, "" + user.password])); // adds their info to the dbUsers value
+    allUsers.push(JSON.stringify({user : user.username, pass: user.password})); // adds their info to the dbUsers value
   });
   return allUsers
 }
@@ -153,7 +153,7 @@ app.post('/submit', function (req, res) {
 // HANDLE LOGIN
 app.post('/login', function (req, res) {
   allUsers = syncAllUsers()
-  console.log(JSON.parse(allUsers))
+  console.log((allUsers))
   console.log("handlig log")
   let dataString = ''
   req.on( 'data', function( data ) {
