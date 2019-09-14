@@ -16,9 +16,21 @@ let me = JSON.stringify(admin)
 allUsers.push(me)
 let entry = {"word":"a","lang":"en-sq","translation":"një","action":"translate","id":1,"user":"admin"}
 let appdata = []
+var FileSync = require('lowdb/adapters/FileSync')
+var adapter = new FileSync('.data/db.json')
+var db = low(adapter)
 appdata.push(entry)
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
+
+
+function syncAllUsers(){
+  var users = db.get('users').value() // Find all users in the collection
+  users.forEach(function(user) {
+    allUsers.push([user.firstName,user.lastName]); // adds their info to the dbUsers value
+  });
+}
+
 
 const translateWord = function(word, lang){
   return new Promise(function(resolve, reject){
@@ -192,6 +204,11 @@ app.post('/create', function (req, res) {
       }
         data = JSON.stringify(data)
         allUsers.push(data)
+         db.get('users')
+          .push({ firstName: request.query.fName, lastName: request.query.lName })
+          .write()
+        console.log("New user inserted in the database");
+        response.sendStatus(200);
         res.send("OK")
     }
     else{
