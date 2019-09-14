@@ -61,6 +61,10 @@ app.get('/about.html', function(request, response) {
   response.sendFile(__dirname + '/views/about.html');
 });
 
+app.get('/create.html', function(request, response) {
+  response.sendFile(__dirname + '/views/create.html');
+});
+
 
 // TRANSLATION SUBMISSION
 app.post('/submit', function (req, res) {

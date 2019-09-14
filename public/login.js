@@ -1,5 +1,7 @@
 
 document.getElementById("bad").style.display = "none"
+document.getElementById("dupe").style.display = "none"
+
 document.getElementById("bad").style.alignContent = "center"
 
 function logIn(){
@@ -28,4 +30,5 @@ window.onload = function() {
     //recieve session info here
     const button = document.getElementById( 'login' )
     button.onclick = logIn
+    const button2 = document.getElementById('createAccount')
   }
