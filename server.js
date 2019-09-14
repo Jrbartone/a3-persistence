@@ -14,7 +14,7 @@ let allUsers = []
 const admin = {user:"admin", pass:"admin"}
 let me = JSON.stringify(admin)
 allUsers.push(me)
-const appdata = []
+const appdata = [{"word":"a","lang":"en-sq","translation":"një","action":"translate","id":1,"user":"admin"}]
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
@@ -106,7 +106,7 @@ app.post('/submit', function (req, res) {
         let j = body.id
         var editWord = ""
         for (k = 0; k < appdata.length; k++){
-          if (appdata[k].includes("" + j)){
+          if (JSON.stringify(appdata[k]).includes("" + j)){
             editWord = JSON.parse(appdata[k]).word
             appdata.splice(k, 1)
           }

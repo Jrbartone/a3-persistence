@@ -20,10 +20,9 @@
     })
     .then (function(creds){
       return creds.text();
-    }).then(function(creds){
-      return creds.split(',');
     }).then(function(user){
-      json.user = user[0] 
+      user = user.split(",")
+      json.user = user[0]
       json.pass = user[1]
       if (user[0] !== ""){
         currentUser = user[0] 
@@ -31,6 +30,8 @@
         document.getElementById("login").href = "/"
       }
     });
+    
+    json.user = currentUser
     
     let body = JSON.stringify( json )
     fetch( '/submit', {
