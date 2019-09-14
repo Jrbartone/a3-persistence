@@ -247,17 +247,7 @@
                 })
           } 
       }
-      //get the shit out of all of the user data
-      //for entry in localAppData{
-      //  json = entry.word, entry.lang, entry.id etc
-      //  stringify
-      //  body = (json)
-      //   fetch( '/submit', {
-    //   method:'POST',
-     //      body 
-    //      })
-      //
-      //
+      
     
     });
     

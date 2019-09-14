@@ -15,7 +15,7 @@ const admin = {user:"admin", pass:"admin"}
 let me = JSON.stringify(admin)
 allUsers.push(me)
 let entry = {"word":"a","lang":"en-sq","translation":"një","action":"translate","id":1,"user":"admin"}
-const appdata = []
+let appdata = []
 appdata.push(entry)
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
