@@ -29,6 +29,12 @@ db.defaults({ users: [
   }).write();
 
 
+db.defaults({ data: [
+      {"word":"","lang":"","translation":"","action":"","id":"","user":""}
+    ]
+  }).write();
+
+
 function syncAllUsers(){
   allUsers = []
   var users = db.get('users').value() // Find all users in the collection
@@ -41,17 +47,19 @@ function syncAllUsers(){
 function syncAllData(){
   appdata = []
   var dataset = db.get('data').value() // Find all users in the collection
-  if (dataset){
+ if(dataset !== undefined){
     console.log("sync...")
-  dataset.forEach(function(data) {
+    dataset.forEach(function(data) {
     appdata.push(JSON.stringify({"word":data.word,"lang":data.lang,"translation":data.translation,"action":data.action,"id":data.id,"user":data.user})); // adds their info to the dbUsers value
   });
   return appdata
-  }
-  else {
-    console.log("No data to sync yet")
+ }
+  else{
+    console.log("no data")
     return appdata
   }
+  
+ 
 }
 
 
@@ -116,7 +124,7 @@ app.post('/submit', function (req, res) {
     
     switch(body.action){
       case "translate":
-         appdata = syncAllData();
+        
         console.log(appdata)
         console.log("translate")
         let payload = {word:body.word, lang: body.lang, translation: "", action: body.action, id:body.id, user:body.user};
@@ -127,12 +135,12 @@ app.post('/submit', function (req, res) {
                 .push(payload)
                 .write()
               console.log("New data inserted in the database");
-            appdata.push(payload);
+             appdata = syncAllData();
             res.end(JSON.stringify(payload));
           });
         break;
       case "delete":
-         appdata = syncAllData();
+         
         console.log("delete")
         let i = 0;
         let id = body.id
@@ -143,13 +151,12 @@ app.post('/submit', function (req, res) {
                 .remove(appdata[i])
                 .write()
               console.log("Data torched from the database");
-            appdata.splice(i, 1)
+             appdata = syncAllData();
           }
         }
         break;
         
       case "edit":
-         appdata = syncAllData();
         console.log("edit")
         let k = 0;
         let j = body.id
@@ -162,7 +169,7 @@ app.post('/submit', function (req, res) {
                 .remove(appdata[k])
                 .write()
               console.log("Edit torched from the database");
-            appdata.splice(k, 1)
+             appdata = syncAllData();
           }
         }
         //console.log(editWord)
@@ -174,7 +181,7 @@ app.post('/submit', function (req, res) {
                 .push(editedLoad)
                 .write()
               console.log("New edit inserted in the database");
-            appdata.push(editedLoad);
+            appdata = syncAllData();
             console.log(appdata)
             res.end(JSON.stringify(editedLoad));
           });
