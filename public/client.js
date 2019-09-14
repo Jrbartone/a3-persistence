@@ -3,6 +3,8 @@
   document.getElementById("editScreen").style.display = "none"
     
  let localAppData = []
+ let currentUser = ""
+
     
   const submit = function( e ) {
     // prevent default form action from being carried out
@@ -24,6 +26,7 @@
       json.user = user[0] 
       json.pass = user[1]
       if (user[0] !== ""){
+        currentUser = user[0] 
         document.getElementById("login").innerHTML = "Logout"
         document.getElementById("login").href = "/"
       }
@@ -133,6 +136,7 @@
       return creds.split(',');
     }).then(function(user){
       if (user[0] != ""){
+        currentUser = user[0];
         document.getElementById("login").innerHTML = "Logout"
         document.getElementById("login").href = "/"
       }
@@ -146,8 +150,99 @@
       return guts.json();
     }).then(function(allData){ 
       for(let i = 0; i < allData.length; i++ ){
-        let json = { word: allData[i].word , lang:inputlang.value, action: "translate", id: count, user: "", pass: ""}
+        if(currentUser === allData[i].user){
+          let json = { word: allData[i].word , lang:allData[i].lang, action: "translate", id: allData[i].id, user: allData[i].user, pass: allData[i].pass}
+          let body = JSON.stringify( json )
+          fetch( '/submit', {
+            method:'POST',
+            body 
+          })
+          .then( function( response ) {
+            return response.json();
+          }).then(function (data) {
+              let tdNode = document.createElement("td");
+              let tdNode2 = document.createElement("td");
+              let tdNode3 = document.createElement("td");
+              let tdNode4 = document.createElement("td");
+              let trNode = document.createElement("tr");
+              let langSelect = document.getElementById("lang");
+              let selectedText = langSelect.options[langSelect.selectedIndex].text;
 
+              let deleteButton = document.createElement("button")
+              let editButton = document.createElement("button")
+
+              deleteButton.className = "pure-button deleteButton"
+              deleteButton.innerHTML = "Delete";
+              editButton.className = "pure-button editButton"
+              editButton.innerHTML = "Edit";
+
+                    deleteButton.onclick =  function deleteRow() {
+                       let p=this.parentNode.parentNode;
+                       p.parentNode.removeChild(p);
+                       json.action = "delete"
+                       json.id = allData[i].id;
+                       body = JSON.stringify( json )
+                       fetch( '/submit', {
+                        method:'POST',
+                        body
+                       })
+                    }
+
+                   editButton.onclick =  function editRow() {
+                      document.getElementById("editScreen").style.display = "block";
+                       let p=this.parentNode.parentNode;
+                        p.parentNode.removeChild(p);
+                      document.getElementById("submitEdits").onclick = function() {
+                        json.action = "edit"
+                        json.id = allData[i].id;
+                        json.lang = document.querySelector('#switchLang').value
+                        body = JSON.stringify( json )
+
+                        fetch( '/submit', {
+                              method:'POST',
+                              body
+                             }).then(function(ret){
+                               return ret.json();
+                             }).then(function(edits){
+
+                                let langSelect2 = document.getElementById("switchLang");
+                                let selectedText2 = langSelect2.options[langSelect2.selectedIndex].text;
+
+                                let tdNode5 = document.createElement("td");
+                                let tdNode6 = document.createElement("td");
+                                let tdNode7 = document.createElement("td");
+                                let tdNode8 = document.createElement("td");
+                                let trNode2 = document.createElement("tr");
+                                tdNode5.appendChild(document.createTextNode(edits.word));
+                                tdNode6.appendChild(document.createTextNode(edits.translation));
+                                tdNode7.appendChild(document.createTextNode(selectedText2));
+                                tdNode8.appendChild(editButton);
+                                tdNode8.appendChild(deleteButton);
+                                trNode2.appendChild(tdNode5);
+                                trNode2.appendChild(tdNode6);
+                                trNode2.appendChild(tdNode7);
+                                trNode2.appendChild(tdNode8);
+                                document.getElementById("results").appendChild(trNode2);
+                                document.getElementById("editScreen").style.display = "none"
+                                return false
+                                     });
+                        return false
+                            }
+                     return false
+                     }
+
+                    tdNode.appendChild(document.createTextNode(data.word));
+                    tdNode2.appendChild(document.createTextNode(data.translation));
+                    tdNode3.appendChild(document.createTextNode(selectedText));
+                    tdNode4.appendChild(editButton);
+                    tdNode4.appendChild(deleteButton);
+                    trNode.appendChild(tdNode);
+                    trNode.appendChild(tdNode2);
+                    trNode.appendChild(tdNode3);
+                    trNode.appendChild(tdNode4);
+                    document.getElementById("results").appendChild(trNode);
+                })
+          } 
       }
       //get the shit out of all of the user data
       //for entry in localAppData{

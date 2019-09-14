@@ -78,8 +78,9 @@ app.post('/submit', function (req, res) {
     
     switch(body.action){
       case "translate":
+        console.log(appdata)
         console.log("translate")
-        let payload = {word:body.word, lang: body.lang, translation: "", action: body.action, id:body.id};
+        let payload = {word:body.word, lang: body.lang, translation: "", action: body.action, id:body.id, user:body.user};
         translateWord(body.word, body.lang).then(function(retVal){
             payload.translation += retVal;
             res.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
@@ -205,7 +206,8 @@ app.post('/userData', function (req, res) {
 
 
 app.post('/queryLogin', function (req, res) {
-  res.end(JSON.stringify(currentSession))
+  console.log(currentSession.join(','))
+  res.end(currentSession.join(','))
 })
 
 const adapter = new FileAsync('db.json')
