@@ -45,6 +45,10 @@ app.get('/', function(request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
+app.get('/', function(request, response) {
+  response.sendFile(__dirname + '/views/index.html');
+});
+
 const adapter = new FileAsync('db.json')
 low(adapter)
   .then(db => {
