@@ -143,7 +143,10 @@ app.post('/login', function (req, res) {
           currentSession[0] = data.user;
           currentSession[1] = data.pass;
           console.log(" login")
-          res.end("OK")
+          res.send("OK")
+          //send all packets of user data
+          
+          
           return
         }
         else{

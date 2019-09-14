@@ -7,6 +7,7 @@
     // prevent default form action from being carried out
     e.preventDefault()
     count = count + 1;
+    let localAppData = []
     let temp = count
     const inputword = document.querySelector( '#word' );
     const inputlang = document.querySelector('#lang');
@@ -16,13 +17,15 @@
       method:'POST', 
     })
     .then (function(creds){
-      creds = creds.text();
+      return creds.text();
+    }).then(function(creds){
       return creds.split(',');
     }).then(function(user){
       json.user = user[0] 
       json.pass = user[1]
       if (user[0] !== ""){
         document.getElementById("login").innerHTML = "Logout"
+        document.getElementById("login").href = "/"
       }
     });
     
@@ -125,13 +128,39 @@
       method:'POST', 
     })
     .then (function(creds){
-      creds = creds.text();
+      return creds.text();
+    }).then(function(creds){
       return creds.split(',');
     }).then(function(user){
       if (user[0] != ""){
         document.getElementById("login").innerHTML = "Logout"
+        document.getElementById("login").href = "/"
       }
     });
+    
+    
+    fetch( '/userData', {
+      method:'POST', 
+    })
+    .then (function(guts){
+      return guts.json();
+    }).then(function(allData){ 
+      //get the shit out of all of the user data
+      //for entry in localAppData{
+      //  json = entry.word, entry.lang, entry.id etc
+      //  stringify
+      //  body = (json)
+      //   fetch( '/submit', {
+    //   method:'POST',
+     //      body 
+    //      })
+      //
+      //
+    
+    });
+    
+    
+    
     const button = document.getElementById( 'translate' )
     button.onclick = submit
   }

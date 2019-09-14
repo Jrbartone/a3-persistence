@@ -18,7 +18,7 @@ function logIn(){
         if (r == "OK"){
           location.href='/index.html'
         }
-        else if (r == "BAD"){
+        else {
          document.getElementById("bad").style.display = "inline"
         }
   })
