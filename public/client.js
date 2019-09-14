@@ -10,8 +10,19 @@
     let temp = count
     const inputword = document.querySelector( '#word' );
     const inputlang = document.querySelector('#lang');
-    let json = { word: inputword.value , lang:inputlang.value, action: "translate", id: count, user: "", pass: ""},
-    body = JSON.stringify( json )
+    let json = { word: inputword.value , lang:inputlang.value, action: "translate", id: count, user: "", pass: ""}
+    
+    fetch( '/queryLogin', {
+      method:'POST', 
+    })
+    .then (function(creds){
+      return creds.split(',');
+    }).then(function(user){
+      json.user = user[0] 
+      json.pass = user[1]
+    });
+    
+    let body = JSON.stringify( json )
     fetch( '/submit', {
       method:'POST',
       body 

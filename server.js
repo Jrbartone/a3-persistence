@@ -119,7 +119,7 @@ app.post('/login', function (req, res) {
 })
 
 app.post('/queryLogin', function (req, res) {
-  res.end(currentSession)
+  res.end(JSON.stringify(currentSession))
 })
 
 const adapter = new FileAsync('db.json')
