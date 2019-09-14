@@ -10,6 +10,7 @@ const FileAsync = require('lowdb/adapters/FileAsync')
 const app = express();
 app.use(bodyParser.json())
 let currentSession = ["", ""]
+let allUsers = []
 const appdata = []
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
@@ -115,7 +116,11 @@ app.post('/submit', function (req, res) {
 })
 
 app.post('/login', function (req, res) {
-  res.send('POST request to the homepage')
+  let data = req.json();
+  for (let i = 0; i < allUsers.length; i++){
+    if allUsers[i].
+  }
+  
 })
 
 app.post('/queryLogin', function (req, res) {
