@@ -11,6 +11,9 @@ const app = express();
 app.use(bodyParser.json())
 let currentSession = ["", ""]
 let allUsers = []
+const admin = {user:"admin", pass:"admin"}
+let me = JSON.stringify(admin)
+allUsers.push(me)
 const appdata = []
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
@@ -130,7 +133,8 @@ app.post('/login', function (req, res) {
   console.log(data)
     if(allUsers.length > 0){
       for (let i = 0; i < allUsers.length; i++){
-        if (allUsers[i].includes(data.user) && allUsers[i].includes(data.user)){
+        let obj = JSON.parse(allUsers[i])
+        if (obj.user == data.user && obj.pass == data.pass){
           currentSession[0] = data.user;
           currentSession[1] = data.pass;
           console.log(" login")
