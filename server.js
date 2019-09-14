@@ -130,6 +130,8 @@ app.post('/submit', function (req, res) {
   //end of datastream
 })
 
+
+// HANDLE LOGIN
 app.post('/login', function (req, res) {
   console.log("handlig log")
   console.log(allUsers)
@@ -169,6 +171,7 @@ app.post('/login', function (req, res) {
 })
 
 
+//HANDLE ACCOUNT CREATION
 app.post('/create', function (req, res) {
   console.log("creating acc")
   let dataString = ''
@@ -214,32 +217,7 @@ app.post('/queryLogin', function (req, res) {
   res.end(currentSession.join(','))
 })
 
-const adapter = new FileAsync('db.json')
-low(adapter)
-  .then(db => {
-    // Routes
-    // GET /posts/:id
-    app.get('/posts/:id', (req, res) => {
-      const post = db.get('posts')
-        .find({ id: req.params.id })
-        .value()
 
-      res.send(post)
-    })
-
-    // POST /posts
-    app.post('/posts', (req, res) => {
-      db.get('posts')
-        .push(req.body)
-        .last()
-        .assign({ id: Date.now().toString() })
-        .write()
-        .then(post => res.send(post))
-    })
-
-    // Set db default values
-    return db.defaults({ posts: [] }).write()
-  })
-  .then(() => {
-    app.listen(3000, () => console.log('listening on port 3000'))
-  })
+var listener = app.listen(process.env.PORT, function () {
+  console.log('Your app is listening on port ' + listener.address().port);
+});
