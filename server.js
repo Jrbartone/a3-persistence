@@ -38,6 +38,15 @@ function syncAllUsers(){
   return allUsers
 }
 
+function syncAllData(){
+  appdata = []
+  var dataset = db.get('data').value() // Find all users in the collection
+  dataset.forEach(function(data) {
+    appdata.push(JSON.stringify({"word":data.word,"lang":data.lang,"translation":data.translation,"action":data.action,"id":data.id,"user":data.user})); // adds their info to the dbUsers value
+  });
+  return appdata
+}
+
 
 const translateWord = function(word, lang){
   return new Promise(function(resolve, reject){
@@ -89,6 +98,8 @@ app.get('/create.html', function(request, response) {
 
 // TRANSLATION SUBMISSION
 app.post('/submit', function (req, res) {
+  //
+  appdata = syncAllData();
   let dataString = ''
   req.on( 'data', function( data ) {
       dataString += data 
@@ -105,6 +116,10 @@ app.post('/submit', function (req, res) {
         translateWord(body.word, body.lang).then(function(retVal){
             payload.translation += retVal;
             res.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
+              db.get('data')
+                .push(payload)
+                .write()
+              console.log("New data inserted in the database");
             appdata.push(payload);
             res.end(JSON.stringify(payload));
           });
@@ -138,6 +153,10 @@ app.post('/submit', function (req, res) {
         translateWord(editWord, body.lang).then(function(retVal){
             editedLoad.translation += retVal;
             res.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
+             db.get('data')
+                .push(editedLoad)
+                .write()
+              console.log("New data inserted in the database");
             appdata.push(editedLoad);
             console.log(appdata)
             res.end(JSON.stringify(editedLoad));
