@@ -1,58 +1,76 @@
-<!-- This is a static file -->
-<!-- served from your routes in server.js -->
-
-<!-- You might want to try something fancier: -->
-<!-- html/nunjucks docs: https://mozilla.github.io/nunjucks/ -->
-<!-- pug: https://pugjs.org/ -->
-<!-- haml: http://haml.info/ -->
-<!-- hbs(handlebars): http://handlebarsjs.com/ -->
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <title>Welcome to Glitch!</title>
-    <meta name="description" content="A cool thing made with Glitch">
-    <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
+    <title>CS4241 Assignment 3</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.1/build/pure-min.css" integrity="sha384-oAOxQR6DkCoMliIh8yFnu25d7Eq/PHS21PClpwjOTeU2jRSq11vu66rf90/cZr47" crossorigin="anonymous">
+    <link href="../style.css" rel="stylesheet">
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- import the webpage's stylesheet -->
-    <link rel="stylesheet" href="/style.css">
-    
-    <!-- import the webpage's client-side javascript file -->
-    <script src="/client.js" defer></script>
   </head>
   <body>
-    <header>
-      <h1>
-        A Dream of the Future
-      </h1>
-    </header>
-
-    <main>
-      <p class="bold">Oh hi,</p>
-      
-      <p>Tell me your hopes and dreams:</p>
-      
-      <form>
-        <input name="dream" type="text" maxlength="100" placeholder="Dreams!" aria-labelledby="submit-dream">
-        <button type="submit" id="submit-dream">Submit Dream</button>
+    <h1>
+      My Travel Dictionary App
+    </h1>
+    <div>
+       <form class="pure-form" action="">
+         How do I say 
+      <input type="text" id="word" value="">
+         in 
+      <select id="lang">
+      <option value="en-sq">Albanian</option>
+      <option value="en-ar">Arabic</option>
+      <option value="en-hy">Armenian</option>
+      <option value="en-bg">Bulgarian</option>
+      <option value="en-zh">Chinese</option>
+      <option value="en-nl">Dutch</option>
+      <option value="en-el">Greek</option>
+      <option value="en-ka">Georgian</option>
+      <option value="en-de">German</option>
+      <option value="en-it">Italian</option>
+      <option value="en-es">Spanish</option>
+      <option value="en-pl">Polish</option>
+      <option value="en-ru">Russian</option>
+      </select>
+         ?
+      <button id="translate" class="pure-button translate">Translate!</button>
+    </form>
+    </div>
+    <h2>
+    </h2>
+    <div id= "editScreen">
+      Switch Language to: 
+      <form class= "pure-form" action = "">
+      <select id="switchLang">
+      <option value="en-sq">Albanian</option>
+      <option value="en-ar">Arabic</option>
+      <option value="en-hy">Armenian</option>
+      <option value="en-bg">Bulgarian</option>
+      <option value="en-zh">Chinese</option>
+      <option value="en-nl">Dutch</option>
+      <option value="en-el">Greek</option>
+      <option value="en-ka">Georgian</option>
+      <option value="en-de">German</option>
+      <option value="en-it">Italian</option>
+      <option value="en-es">Spanish</option>
+      <option value="en-pl">Polish</option>
+      <option value="en-ru">Russian</option>
+      </select>
+         <button id="submitEdits" class="pure-button translate">Submit!</button>
       </form>
-      
-      <section class="dreams">
-        <ul id="dreams"></ul>
-      </section>
-    </main>
-
-    <footer>
-      Made with <a href="https://glitch.com">Glitch</a>!
-    </footer>
-
-    <!-- include the Glitch button to show what the webpage is about and
-          to make it easier for folks to view source and remix -->
-    <div class="glitchButton" style="position:fixed;top:20px;right:20px;"></div>
-    <script src="https://button.glitch.me/button.js"></script>
-
+    </div>
+    <h2>
+    </h2>
+  <table id="results"  class="pure-table" style="width:100%">
+    <thead>
+  <tr>
+    <th>Word</th>
+    <th>Translation</th> 
+    <th>Language</th>
+    <th>Options</th>
+  </tr>
+    </thead>
+  </table>
   </body>
+  <script>
+  </script>
 </html>

@@ -3,6 +3,7 @@
 
 // init project
 const express = require('express')
+const session = require('express-session')
 const bodyParser = require('body-parser')
 const low = require('lowdb')
 const FileAsync = require('lowdb/adapters/FileAsync')
