@@ -128,6 +128,7 @@ app.post('/submit', function (req, res) {
 
 app.post('/login', function (req, res) {
   console.log("handlig log")
+  console.log(allUsers)
   let dataString = ''
   req.on( 'data', function( data ) {
       dataString += data 
@@ -143,16 +144,18 @@ app.post('/login', function (req, res) {
           currentSession[1] = data.pass;
           console.log(" login")
           res.end("OK")
+          return
         }
         else{
-          console.log("bad login")
-          res.send("BAD")
+          //console.log("bad login")
+          //res.send("BAD")
         }
       }
     }
     else{
        console.log("bad login")
        res.send("BAD")
+      return
     }
   })
 })
@@ -173,6 +176,7 @@ app.post('/create', function (req, res) {
         if (obj.user == data.user){
           console.log(" login")
           res.end("BAD")
+          return
         }
       }
         data = JSON.stringify(data)
@@ -183,6 +187,7 @@ app.post('/create', function (req, res) {
         data = JSON.stringify(data)
         allUsers.push(data)
         res.send("OK")
+      return
     }
   })
 })

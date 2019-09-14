@@ -16,6 +16,7 @@
       method:'POST', 
     })
     .then (function(creds){
+      creds = creds.text();
       return creds.split(',');
     }).then(function(user){
       json.user = user[0] 
@@ -119,6 +120,18 @@
 
   window.onload = function() {
     //recieve session info here
+    
+    fetch( '/queryLogin', {
+      method:'POST', 
+    })
+    .then (function(creds){
+      creds = creds.text();
+      return creds.split(',');
+    }).then(function(user){
+      if (user[0] != ""){
+        document.getElementById("login").innerHTML = "Logout"
+      }
+    });
     const button = document.getElementById( 'translate' )
     button.onclick = submit
   }
