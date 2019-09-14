@@ -104,6 +104,7 @@
   }
 
   window.onload = function() {
+    //recieve session info here
     const button = document.getElementById( 'translate' )
     button.onclick = submit
   }
