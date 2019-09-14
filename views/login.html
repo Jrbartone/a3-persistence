@@ -9,50 +9,25 @@
   </head>
   <body>
       <ul class="navbar">
-        <li class="navbar"><a href="index.html">Home</a></li>
+        <li class="navbar"><a href="/">Home</a></li>
         <li class="navbar"><a href="login.html">Login</a></li>
         <li class="navbar" style="float:right"><a class="active" href="about.html">About</a></li>
       </ul>
     <h1>
       My Travel Dictionary App
     </h1>
-   <div>
+   <div class="login">
+     <form style="margin:7px" class="pure-form" action="">
+      <input type="text" id="username" value="">
+       </form>
+     <form style="margin:0px" class="pure-form" action="">
+      <input type="text" id="password" value="">
+     </form>
+      <button style="margin:7px" id="login" class="pure-button translate">Login!</button>
+    
     </div>
     <h2>
     </h2>
-    <div id= "editScreen">
-      Switch Language to: 
-      <form class= "pure-form" action = "">
-      <select id="switchLang">
-      <option value="en-sq">Albanian</option>
-      <option value="en-ar">Arabic</option>
-      <option value="en-hy">Armenian</option>
-      <option value="en-bg">Bulgarian</option>
-      <option value="en-zh">Chinese</option>
-      <option value="en-nl">Dutch</option>
-      <option value="en-el">Greek</option>
-      <option value="en-ka">Georgian</option>
-      <option value="en-de">German</option>
-      <option value="en-it">Italian</option>
-      <option value="en-es">Spanish</option>
-      <option value="en-pl">Polish</option>
-      <option value="en-ru">Russian</option>
-      </select>
-         <button id="submitEdits" class="pure-button translate">Submit!</button>
-      </form>
-    </div>
-    <h2>
-    </h2>
-  <table id="results"  class="pure-table" style="width:100%">
-    <thead>
-  <tr>
-    <th>Word</th>
-    <th>Translation</th> 
-    <th>Language</th>
-    <th>Options</th>
-  </tr>
-    </thead>
-  </table>
   </body>
-  <script src="../client.js"></script>
+  <script src="../login.js"></script>
 </html>
