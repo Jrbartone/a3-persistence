@@ -20,6 +20,9 @@
     }).then(function(user){
       json.user = user[0] 
       json.pass = user[1]
+      if (user[0] !== ""){
+        document.getElementById("login").innerHTML = "Logout"
+      }
     });
     
     let body = JSON.stringify( json )

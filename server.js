@@ -43,6 +43,10 @@ app.use(express.static('public'));
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get('/', function(request, response) {
+  response.sendFile(__dirname + '/views/home.html');
+});
+
+app.get('/index.html', function(request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
@@ -118,7 +122,16 @@ app.post('/submit', function (req, res) {
 app.post('/login', function (req, res) {
   let data = req.json();
   for (let i = 0; i < allUsers.length; i++){
-    if allUsers[i].
+    if (allUsers[i].includes(data.user) && allUsers[i].includes(data.user)){
+      currentSession[0] = data.user;
+      currentSession[1] = data.pass;
+      console.log(" login")
+      res.end("OK")
+    }
+    else{
+      console.log("bad login")
+      res.end("BAD")
+    }
   }
   
 })
