@@ -104,11 +104,11 @@ app.post('/submit', function (req, res) {
         console.log("edit")
         let k = 0;
         let j = body.id
-        var editWord = ""
+        let editWord = ""
         for (k = 0; k < appdata.length; k++){
           if (JSON.stringify(appdata[k]).includes("" + j)){
-            console.log("appdata:: " + appdata[])
-            editWord = JSON.parse(appdata[k]).word
+            console.log("appdata:: " + JSON.stringify(appdata[k]))
+            editWord = JSON.stringify(appdata[k]).word
             appdata.splice(k, 1)
           }
         }

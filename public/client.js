@@ -75,6 +75,7 @@
           document.getElementById("submitEdits").onclick = function() {
             json.action = "edit"
             json.id = temp;
+            json.user = currentUser;
             json.lang = document.querySelector('#switchLang').value
             body = JSON.stringify( json )
 
@@ -136,6 +137,7 @@
       return creds.split(',');
     }).then(function(user){
       if (user[0] != ""){
+        localAppData = []
         currentUser = user[0];
         document.getElementById("login").innerHTML = "Logout"
         document.getElementById("login").href = "/"
