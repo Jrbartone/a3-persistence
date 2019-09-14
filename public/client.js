@@ -28,6 +28,7 @@
         let trNode = document.createElement("tr");
         let langSelect = document.getElementById("lang");
         let selectedText = langSelect.options[langSelect.selectedIndex].text;
+      
         let deleteButton = document.createElement("button")
         let editButton = document.createElement("button")
         
@@ -35,6 +36,7 @@
         deleteButton.innerHTML = "Delete";
         editButton.className = "pure-button editButton"
         editButton.innerHTML = "Edit";
+      
         deleteButton.onclick =  function deleteRow() {
            json.action = "delete"
            json.id = temp;

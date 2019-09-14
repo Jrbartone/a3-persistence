@@ -9,7 +9,8 @@ const low = require('lowdb')
 const FileAsync = require('lowdb/adapters/FileAsync')
 const app = express();
 app.use(bodyParser.json())
-
+let currentSession = ["", ""]
+let appdata = []
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
@@ -37,7 +38,6 @@ const translateWord = function(word, lang){
 }
 
 
-// http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
 
 // http://expressjs.com/en/starter/basic-routing.html
@@ -52,6 +52,68 @@ app.get('/login.html', function(request, response) {
 app.get('/about.html', function(request, response) {
   response.sendFile(__dirname + '/views/about.html');
 });
+
+
+// TRANSLATION SUBMISSION
+app.post('/submit', function (req, res) {
+   let dataString = ''
+  req.on( 'data', function( data ) {
+      dataString += data 
+  })
+  req.on( 'end', function() {
+    let body = JSON.parse( dataString )
+    var translation = ""
+    switch(body.action){
+      case "translate":
+        let payload = {word:body.word, lang: body.lang, translation: "", action: body.action, id:body.id};
+        translateWord(body.word, body.lang).then(function(retVal){
+            payload.translation += retVal;
+            res.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
+            appdata.push(JSON.stringify(payload));
+            res.end(JSON.stringify(payload));
+          });
+        break;
+      case "delete":
+        console.log(appdata)
+        let i = 0;
+        let id = body.id
+        console.log(body.id)
+        for (i = 0; i < appdata.length; i++){
+          if (appdata[i].includes("" + id)){
+            appdata.splice(i, 1)
+          }
+        }
+        console.log(appdata)
+        break;
+        
+      case "edit":
+        console.log(appdata)
+        let k = 0;
+        let j = body.id
+        var editWord = ""
+        for (k = 0; k < appdata.length; k++){
+          if (appdata[k].includes("" + j)){
+            editWord = JSON.parse(appdata[k]).word
+            appdata.splice(k, 1)
+          }
+        }
+        //console.log(editWord)
+        let editedLoad = {word:editWord, lang: body.lang, translation: "", action: body.action, id:body.id};
+        translateWord(editWord, body.lang).then(function(retVal){
+            editedLoad.translation += retVal;
+            res.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
+            appdata.push(JSON.stringify(editedLoad));
+            console.log(appdata)
+            res.end(JSON.stringify(editedLoad));
+          });
+        break;
+    }
+  })
+})
+
+app.post('/login', function (req, res) {
+  res.send('POST request to the homepage')
+})
 
 const adapter = new FileAsync('db.json')
 low(adapter)
