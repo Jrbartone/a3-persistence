@@ -120,20 +120,33 @@ app.post('/submit', function (req, res) {
 })
 
 app.post('/login', function (req, res) {
-  let data = req.json();
-  for (let i = 0; i < allUsers.length; i++){
-    if (allUsers[i].includes(data.user) && allUsers[i].includes(data.user)){
-      currentSession[0] = data.user;
-      currentSession[1] = data.pass;
-      console.log(" login")
-      res.end("OK")
+  console.log("handlig log")
+  let dataString = ''
+  req.on( 'data', function( data ) {
+      dataString += data 
+  })
+  req.on( 'end', function() {
+  let data = JSON.parse(dataString)
+  console.log(data)
+    if(allUsers.length > 0){
+      for (let i = 0; i < allUsers.length; i++){
+        if (allUsers[i].includes(data.user) && allUsers[i].includes(data.user)){
+          currentSession[0] = data.user;
+          currentSession[1] = data.pass;
+          console.log(" login")
+          res.end("OK")
+        }
+        else{
+          console.log("bad login")
+          res.end("BAD")
+        }
+      }
     }
     else{
-      console.log("bad login")
-      res.end("BAD")
+       console.log("bad login")
+       res.end("BAD")
     }
-  }
-  
+  })
 })
 
 app.post('/queryLogin', function (req, res) {

@@ -1,6 +1,7 @@
 
 document.getElementById("bad").style.display = "none"
-document.getElementById("login").onclick = function logIn(){
+
+function logIn(){
   let user = document.querySelector( '#username' )
   let password = document.querySelector( '#password' )
   //send session info here
@@ -11,6 +12,8 @@ document.getElementById("login").onclick = function logIn(){
       method:'POST',
       body 
     }).then(function(response){
+      response = response.json();
+      document.getElementById('login').innerHTML = response
       if (response == "OK"){
         location.href='/index.html'
       }
@@ -20,3 +23,9 @@ document.getElementById("login").onclick = function logIn(){
   })
   
 }
+
+window.onload = function() {
+    //recieve session info here
+    const button = document.getElementById( 'login' )
+    button.onclick = logIn
+  }
