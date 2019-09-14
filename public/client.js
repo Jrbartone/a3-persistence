@@ -152,7 +152,7 @@
       return guts.json();
     }).then(function(allData){ 
       for(let i = 0; i < allData.length; i++ ){
-        if(currentUser === allData[i].user){
+        if(currentUser == allData[i].user){
           let json = { word: allData[i].word , lang:allData[i].lang, action: "translate", id: allData[i].id, user: allData[i].user, pass: allData[i].pass}
           let body = JSON.stringify( json )
           fetch( '/submit', {
@@ -197,6 +197,7 @@
                       document.getElementById("submitEdits").onclick = function() {
                         json.action = "edit"
                         json.id = allData[i].id;
+                        json.user = currentUser;
                         json.lang = document.querySelector('#switchLang').value
                         body = JSON.stringify( json )
 
