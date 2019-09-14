@@ -63,6 +63,7 @@ app.post('/submit', function (req, res) {
   req.on( 'end', function() {
     let body = JSON.parse( dataString )
     var translation = ""
+    
     switch(body.action){
       case "translate":
         console.log("translate")
@@ -73,7 +74,6 @@ app.post('/submit', function (req, res) {
             appdata.push(JSON.stringify(payload));
             res.end(JSON.stringify(payload));
           });
-        return;
         break;
       case "delete":
         console.log("delete")
@@ -85,7 +85,6 @@ app.post('/submit', function (req, res) {
             appdata.splice(i, 1)
           }
         }
-        return;
         break;
         
       case "edit":
@@ -108,14 +107,19 @@ app.post('/submit', function (req, res) {
             console.log(appdata)
             res.end(JSON.stringify(editedLoad));
           });
-        return;
         break;
     }
+    //end of switch case
   })
+  //end of datastream
 })
 
 app.post('/login', function (req, res) {
   res.send('POST request to the homepage')
+})
+
+app.post('/queryLogin', function (req, res) {
+  res.end(currentSession)
 })
 
 const adapter = new FileAsync('db.json')

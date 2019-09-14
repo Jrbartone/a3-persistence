@@ -9,9 +9,9 @@
     count = count + 1;
     let temp = count
     const inputword = document.querySelector( '#word' );
-    const inputlang = document.querySelector('#lang'),
-          json = { word: inputword.value , lang:inputlang.value, action: "translate", id: count},
-          body = JSON.stringify( json )
+    const inputlang = document.querySelector('#lang');
+    let json = { word: inputword.value , lang:inputlang.value, action: "translate", id: count, user: "", pass: ""},
+    body = JSON.stringify( json )
     fetch( '/submit', {
       method:'POST',
       body 
