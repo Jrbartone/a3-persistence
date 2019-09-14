@@ -86,7 +86,7 @@ app.post('/submit', function (req, res) {
         translateWord(body.word, body.lang).then(function(retVal){
             payload.translation += retVal;
             res.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
-            appdata.push(JSON.stringify(payload));
+            appdata.push(payload);
             res.end(JSON.stringify(payload));
           });
         break;
@@ -119,7 +119,7 @@ app.post('/submit', function (req, res) {
         translateWord(editWord, body.lang).then(function(retVal){
             editedLoad.translation += retVal;
             res.writeHead( 200, "OK", {'Content-Type': 'text/plain' });
-            appdata.push(JSON.stringify(editedLoad));
+            appdata.push(editedLoad);
             console.log(appdata)
             res.end(JSON.stringify(editedLoad));
           });

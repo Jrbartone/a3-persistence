@@ -128,6 +128,9 @@
   window.onload = function() {
     //recieve session info here
     
+    //clear tables
+    document.getElementById("results")
+    
     fetch( '/queryLogin', {
       method:'POST', 
     })
