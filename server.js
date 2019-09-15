@@ -15,19 +15,29 @@ let currentSession = ["", ""]
 let allUsers = []
 const admin = {user:"admin", pass:"admin"}
 let me = JSON.stringify(admin)
-//allUsers.push(me)
 let entry = {"word":"a","lang":"en-sq","translation":"një","action":"translate","id":1,"user":"admin"}
 let appdata = []
 var FileSync = require('lowdb/adapters/FileSync')
 var adapter = new FileSync('.data/db.json')
 var db = low(adapter)
+var Strategy = require('passport-local').Strategy;
+var passport = require('passport');
+
 
 
 
 //appdata.push(entry)
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
-
+passport.use(new Strategy(
+    function(username, password, cb) {
+      db.users.findByUsername(username, function(err, user) {
+        if (err) { return cb(err); }
+        if (!user) { return cb(null, false); }
+        if (user.password != password) { return cb(null, false); }
+        return cb(null, user);
+      });
+    }));
 
 
 db.defaults({ users: [
@@ -202,7 +212,9 @@ app.post('/submit', function (req, res) {
 
 
 // HANDLE LOGIN
-app.post('/login', function (req, res) {
+app.post('/login',
+        // passport.authenticate('local', { failureRedirect: '/login' }),
+         function (req, res) {
   allUsers = syncAllUsers()
   console.log((allUsers))
   console.log("handlig log")
