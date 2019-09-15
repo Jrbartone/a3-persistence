@@ -44,11 +44,9 @@ db.defaults({ data: [
 
 
 passport.use(new Strategy(
-   {
-    passReqToCallback: true,
-  },
   function(username, password, done) {
    let user = db.get('users').find({username: username, password:password}).value()
+     console.log("user")
       if (user.password != password) { return done(null, false); }
       return done(null, user);
   }
@@ -108,7 +106,7 @@ const translateWord = function(word, lang){
 
 app.use(express.static('public'));
 app.use(passport.initialize());
-
+app.use(bodyParser.json())
 //app.use(favicon("https://cdn.glitch.com/706656bd-050b-4068-a255-39e940af21ae%2F35-512.png?v=1568561418524"))
 
 // http://expressjs.com/en/starter/basic-routing.html
@@ -218,13 +216,8 @@ app.post('/submit', function (req, res) {
 
 // HANDLE LOGIN
 app.post('/login',
-  function(req,res,next){
-   passport.authenticate("local", function(err, user, info){
-
-    // handle succes or failure
-
-  
-  
+         passport.authenticate('local', { failureRedirect: '/login' }),
+         function (req, res) {
   allUsers = syncAllUsers()
   console.log((allUsers))
   console.log("handlig log")
@@ -261,7 +254,6 @@ app.post('/login',
       return
     }
   })
-     })(req,res,next); 
 })
 
 
