@@ -45,7 +45,7 @@ db.defaults({ data: [
 
 passport.use(new Strategy(
   function(username, password, done) {
-   let user =  db.get("users").find({ username: username, password:password})
+   let user =  db.get("users").find({ username: username}).value()
       if (!user) { return done(null, false); }
       if (user.password != password) { return done(null, false); }
       return done(null, user);
