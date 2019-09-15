@@ -24,6 +24,7 @@ var Strategy = require('passport-local').Strategy;
 var passport = require('passport');
 var assets = require("./assets");
 var timeout = require('connect-timeout')
+const helmet = require('helmet')
 
 
 // MIDDLEWEAR .USE
@@ -34,6 +35,7 @@ app.use("/assets", assets);
 app.use(passport.initialize())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(helmet())
 
 function haltOnTimedout (req, res, next) {
   if (!req.timedout) next()

@@ -1,27 +1,22 @@
-Welcome to Glitch
-=================
 
-Click `Show` in the header to see your app live. Updates to your code will instantly deploy and update live.
+## My Travel Dictionary App v2
 
-**Glitch** is the friendly community where you'll build the app of your dreams. Glitch lets you instantly create, remix, edit, and host an app, bot or site, and you can invite collaborators or helpers to simultaneously edit code with you.
+your glitch link e.g. http://a3-jrbartone.glitch.me
 
-Find out more [about Glitch](https://glitch.com/about).
+  If you think you liked My Travel Dictionary 1 you're gonna love this. It's the same app except with user 
 
+Middleware packages
+- 1: passport: Locally authenticates the User and Password in my db
+- 2: body-parser: Neccessary for passport to read the json objects that are recieved by the server
+- 3: serve-favicon: Puts a fun little globe image in the corner of the page
+- 4: connect-timeout: Attached to the calls out to the Yandex API to prevent hang in case their service is down.
+- 5: helmet: Helps secure the app by adding various HTTP headers
 
-Your Project
-------------
+## Technical Achievements
+- **Tech Achievement 1**: Includes functionality to shw
+- **Tech Achievement 2**: I used 
 
-On the front-end,
-- edit `public/client.js`, `public/style.css` and `views/index.html`
-- drag in `assets`, like images or music, to add them to your project
-
-On the back-end,
-- your app starts at `server.js`
-- add frameworks and packages in `package.json`
-- safely store app secrets in `.env` (nobody can see this but you and people you invite)
-
-
-Made by [Glitch](https://glitch.com/)
--------------------
-
-\ ゜o゜)ノ
+### Design/Evaluation Achievements
+- **Design Achievement 1**: Added a navbar and various other pages
+- **Design Achievement 2**: Change the heading of the app to reflect current user
+- **Design Achievement 3**: Use alert() to display feedback on submission of login
