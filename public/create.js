@@ -17,10 +17,12 @@ function createAccount(){
        return response.text();
       }).then(function (r){
         if (r == "OK"){
-         document.getElementById("ok").style.display = "inline"
+         //document.getElementById("ok").style.display = "inline"
+          alert("Account created successfully!")
         }
         else if (r == "BAD"){
-         document.getElementById("dupe").style.display = "inline"
+         //document.getElementById("dupe").style.display = "inline"
+          alert("User already exists, try again!")
         }
   })
 }

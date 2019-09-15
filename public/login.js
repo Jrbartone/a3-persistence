@@ -1,11 +1,14 @@
 
 
 function logIn(){
-  let user = document.querySelector( '#username' )
+  let username = document.querySelector( '#username' )
   let password = document.querySelector( '#password' )
   //send session info here
-  let json = { username: user.value, password: password.value}
-  let body = JSON.stringify(json)
+  let json = { username: username.value, password: password.value}
+  let URL = "username=" +username.value +  "&password=" + password.value
+
+  //let body = JSON.stringify(json)
+  let body = URL
   
   fetch( '/login', {
       method:'POST',
