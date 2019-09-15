@@ -121,7 +121,7 @@ const translateWord = function(word, lang){
 
 app.use(express.static('public'));
 //app.use(passport.initialize());
-app.use(favicon(__dirname + '/assets/glo.ico'));
+app.use(favicon(path.join(__dirname, 'assets', 'glo.ico')))
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get('/', function(request, response) {
