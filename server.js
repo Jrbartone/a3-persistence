@@ -24,7 +24,9 @@ var Strategy = require('passport-local').Strategy;
 var passport = require('passport');
 
 
+var assets = require("./assets");
 
+app.use("/assets", assets);
 
 //appdata.push(entry)
 // we've started you off with Express, 
@@ -42,6 +44,7 @@ db.defaults({ data: [
     ]
   }).write();
 
+app.use(favicon(path.join(__dirname, 'assets', 'glo.ico')))
 app.use(passport.initialize())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -91,10 +94,7 @@ function syncAllData(){
     console.log("no data")
     return appdata
   }
-  
- 
 }
-
 
 const translateWord = function(word, lang){
   return new Promise(function(resolve, reject){
@@ -121,8 +121,6 @@ const translateWord = function(word, lang){
 
 app.use(express.static('public'));
 //app.use(passport.initialize());
-app.use(favicon(path.join(__dirname, 'assets', 'glo.ico')))
-
 // http://expressjs.com/en/starter/basic-routing.html
 app.get('/', function(request, response) {
   response.sendFile(__dirname + '/views/home.html');
