@@ -93,9 +93,8 @@ const translateWord = function(word, lang){
   });
 }
 
-
 app.use(express.static('public'));
-app.use(favicon("https://cdn.glitch.com/706656bd-050b-4068-a255-39e940af21ae%2F35-512.png?v=1568561418524"))
+//app.use(favicon("https://cdn.glitch.com/706656bd-050b-4068-a255-39e940af21ae%2F35-512.png?v=1568561418524"))
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get('/', function(request, response) {
