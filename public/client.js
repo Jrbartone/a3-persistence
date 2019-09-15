@@ -304,7 +304,8 @@
     });
     
 
-    
+    //
+    //document.location.reload()
     const button = document.getElementById( 'translate' )
     button.onclick = submit
   }
