@@ -29,20 +29,6 @@ var passport = require('passport');
 //appdata.push(entry)
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
-passport.use(new Strategy(
-  {
-    usernameField: 'user',
-    passwordField: 'pass'
-  },
-    function(username, password, cb) {
-      console.log(username)
-      console.log(password)
-      let user = db.get('users').find({user:username, pass:password})
-        console.log(user)
-        if (!user) { return cb(null, false); }
-        if (user.pass != password) { return cb(null, false); }
-        return cb(null, user);
-    }));
 
 
 db.defaults({ users: [
@@ -55,6 +41,22 @@ db.defaults({ data: [
       {"word":"","lang":"","translation":"","action":"","id":"","user":""}
     ]
   }).write();
+
+
+passport.use(new Strategy(
+  {
+    usernameField: 'username',
+    passwordField: 'password'
+  },
+    function(username, password, cb) {
+      console.log(username)
+      console.log(password)
+      let user = db.get('users').find({ "username":username, "password":password})
+        console.log(user)
+        if (!user) { return cb(null, false); }
+        if (user.password != password) { return cb(null, false); }
+        return cb(null, user);
+    }));
 
 
 function syncAllUsers(){
@@ -218,7 +220,7 @@ app.post('/submit', function (req, res) {
 
 // HANDLE LOGIN
 app.post('/login',
-         passport.authenticate('local', { failureRedirect: '/login' }),
+        // passport.authenticate('local', { failureRedirect: '/login' }),
          function (req, res) {
   allUsers = syncAllUsers()
   console.log((allUsers))
