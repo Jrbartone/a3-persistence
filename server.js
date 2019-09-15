@@ -219,6 +219,9 @@ app.post('/submit', function (req, res) {
 // HANDLE LOGIN
 
 app.post('/login',
+         passport.authenticate('local',function(err, user, info,){
+              console.log(info)
+          }),
          function (req, res) {
   allUsers = syncAllUsers()
   console.log((allUsers))
@@ -248,19 +251,15 @@ app.post('/login',
       }
        console.log("bad login")
        res.send("BAD")
-      return
+       return
     }
     else{
        console.log("bad login")
        res.send("BAD")
-      return
+       return
     }
   })
- 
-},passport.authenticate('local',function(err, user, info,){
-  
-}
-        console.log("user"))
+})
 
 
 //HANDLE ACCOUNT CREATION
