@@ -2,6 +2,8 @@
 // where your node app starts
 
 // init project
+var favicon = require('serve-favicon')
+var path = require('path')
 const express = require('express')
 const session = require('express-session')
 const bodyParser = require('body-parser')
@@ -19,9 +21,13 @@ let appdata = []
 var FileSync = require('lowdb/adapters/FileSync')
 var adapter = new FileSync('.data/db.json')
 var db = low(adapter)
+
+
 //appdata.push(entry)
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
+
+
 
 db.defaults({ users: [
       {"username":"admin", "password":"admin"}
@@ -88,6 +94,8 @@ const translateWord = function(word, lang){
 
 
 app.use(express.static('public'));
+
+app.use(favicon(path.join("assets", '35-512.png')))
 
 // http://expressjs.com/en/starter/basic-routing.html
 app.get('/', function(request, response) {
