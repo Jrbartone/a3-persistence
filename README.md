@@ -3,7 +3,9 @@
 
 your glitch link e.g. http://a3-jrbartone.glitch.me
 
-  If you think you liked My Travel Dictionary 1 you're gonna love this. It's the same app except with user 
+   If you think you liked My Travel Dictionary 1 you're gonna love this. It's the same app except with a full login service and persistent data storage. In this version of the app, multiple users can exist and have their
+  own travel dictionaries. You can only create an account if you're already logged in as someone else, which is a strange design choice but prevents other students from messing with my database. (admin, admin is the
+  default login info. Accounts a,a and Joe,a also exist.)  
 
 Middleware packages
 - 1: passport: Locally authenticates the User and Password in my db
@@ -13,8 +15,8 @@ Middleware packages
 - 5: helmet: Helps secure the app by adding various HTTP headers
 
 ## Technical Achievements
-- **Tech Achievement 1**: Includes functionality to shw
-- **Tech Achievement 2**: I used 
+- **Tech Achievement 1**: Persistent table of translated words are specific per user 
+- **Tech Achievement 2**: ...
 
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: Added a navbar and various other pages
