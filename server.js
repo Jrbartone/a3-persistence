@@ -22,35 +22,34 @@ var adapter = new FileSync('.data/db.json')
 var db = low(adapter)
 var Strategy = require('passport-local').Strategy;
 var passport = require('passport');
-
-app.use(favicon(path.join(__dirname, 'assets', 'glo.ico')))
-
-
-
 var assets = require("./assets");
 
+// MIDDLEWEAR .USE
+app.use(express.static('public'));
+//1
+app.use(favicon(path.join(__dirname, 'assets', 'glo.ico')))
 app.use("/assets", assets);
+//2
+app.use(passport.initialize())
+//3
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }));
+//4
+//5
 
-//appdata.push(entry)
-// we've started you off with Express, 
-// but feel free to use whatever libs or frameworks you'd like through `package.json`.
-
-
+// SET DEFAULT DB USERS
 db.defaults({ users: [
       {"username":"admin", "password":"admin"}
     ]
   }).write();
 
-
+// SET DEFAULT DB DATA
 db.defaults({ data: [
       {"word":"","lang":"","translation":"","action":"","id":"","user":""}
     ]
   }).write();
 
-app.use(passport.initialize())
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }));
-
+// LOCAL PASSPORT CHECK STRATEGY
 passport.use(new Strategy(
   {
     usernameField: 'username',
@@ -64,6 +63,7 @@ passport.use(new Strategy(
   }
 ));
 
+//PASSPORT CONFIG
 passport.serializeUser(function(user, done) {
   done(null, user);
 });
@@ -72,7 +72,7 @@ passport.deserializeUser(function(user, done) {
   done(null, user);
 });
 
-
+// READ FROM DB INTO LOCAL STORAGE
 function syncAllUsers(){
   allUsers = []
   var users = db.get('users').value() // Find all users in the collection
@@ -82,6 +82,7 @@ function syncAllUsers(){
   return allUsers
 }
 
+// READ FROM DB INTO LOCAL STORAGE
 function syncAllData(){
   appdata = []
   var dataset = db.get('data').value() // Find all users in the collection
@@ -98,6 +99,7 @@ function syncAllData(){
   }
 }
 
+// TRANSLATION API
 const translateWord = function(word, lang){
   return new Promise(function(resolve, reject){
         var url = "https://translate.yandex.net/api/v1.5/tr.json/translate",
@@ -121,9 +123,7 @@ const translateWord = function(word, lang){
   });
 }
 
-app.use(express.static('public'));
-//app.use(passport.initialize());
-// http://expressjs.com/en/starter/basic-routing.html
+// ROUTING HERE
 app.get('/', function(request, response) {
   response.sendFile(__dirname + '/views/home.html');
 });
