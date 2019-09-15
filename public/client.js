@@ -3,6 +3,7 @@
   document.getElementById("editScreen").style.display = "none"
  let localAppData = []
  let currentUser = ""
+ var loaded = 0
  
  
  function langFinder(str){
@@ -299,8 +300,7 @@
                 
           } 
       }
-      
-    
+     
     });
     
 
@@ -309,3 +309,5 @@
     const button = document.getElementById( 'translate' )
     button.onclick = submit
   }
+
+//document.location.reload()

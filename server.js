@@ -23,8 +23,11 @@ var db = low(adapter)
 var Strategy = require('passport-local').Strategy;
 var passport = require('passport');
 var assets = require("./assets");
+var timeout = require('connect-timeout')
+
 
 // MIDDLEWEAR .USE
+app.use(timeout('5s'))
 app.use(express.static('public'));
 //1
 app.use(favicon(path.join(__dirname, 'assets', 'glo.ico')))
@@ -35,7 +38,13 @@ app.use(passport.initialize())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 //4
+app.use(haltOnTimedout)
 //5
+
+function haltOnTimedout (req, res, next) {
+  if (!req.timedout) next()
+}
+
 
 // SET DEFAULT DB USERS
 db.defaults({ users: [
