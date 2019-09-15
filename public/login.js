@@ -7,12 +7,16 @@ function logIn(){
   let json = { username: username.value, password: password.value}
   let URL = "username=" +username.value +  "&password=" + password.value
 
-  //let body = JSON.stringify(json)
-  let body = URL
+  let body = JSON.stringify(json)
+  //let body = URL
   
   fetch( '/login', {
+      headers: {
+            'Content-Type': 'application/json',
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+      },
       method:'POST',
-      body 
+      body: body
     }).then(function(response){
        return response.text();
       }).then(function (r){

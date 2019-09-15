@@ -222,11 +222,12 @@ app.post('/submit', function (req, res) {
 
 // HANDLE LOGIN
 
-app.post('/login',
-         passport.authenticate('local',function(err, user, info,){
-              console.log(info)
-          }),
+app.post('/login', 
+         //passport.authenticate('local',function(err, user, info,){
+        //      console.log(info)
+        //  }),
          function (req, res) {
+  console.log(req.body)
   allUsers = syncAllUsers()
   console.log((allUsers))
   console.log("handlig log")
