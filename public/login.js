@@ -17,7 +17,8 @@ function logIn(){
           location.href='/index.html'
         }
         else {
-         alert("Account credentials invalid")
+          alert(r)
+         //alert("Account credentials invalid")
          //document.getElementById("baddy").style.display = "inline"
         }
   })
