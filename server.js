@@ -30,14 +30,18 @@ var passport = require('passport');
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
 passport.use(new Strategy(
+  {
+    usernameField: 'user',
+    passwordField: 'pass'
+  },
     function(username, password, cb) {
-      db.get('users').find(username, function(err, user) {
+      console.log(username)
+      console.log(password)
+      let user = db.get('users').find({user:username, pass:password})
         console.log(user)
-        if (err) { return cb(err); }
         if (!user) { return cb(null, false); }
         if (user.pass != password) { return cb(null, false); }
         return cb(null, user);
-      });
     }));
 
 
