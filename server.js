@@ -23,6 +23,9 @@ var db = low(adapter)
 var Strategy = require('passport-local').Strategy;
 var passport = require('passport');
 
+app.use(favicon(path.join(__dirname, 'assets', 'glo.ico')))
+
+
 
 var assets = require("./assets");
 
@@ -44,7 +47,6 @@ db.defaults({ data: [
     ]
   }).write();
 
-app.use(favicon(path.join(__dirname, 'assets', 'glo.ico')))
 app.use(passport.initialize())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
