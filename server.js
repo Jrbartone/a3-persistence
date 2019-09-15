@@ -44,19 +44,13 @@ db.defaults({ data: [
 
 
 passport.use(new Strategy(
-  {
-    usernameField: 'username',
-    passwordField: 'password'
-  },
-    function(username, password, cb) {
-      console.log(username)
-      console.log(password)
-      let user = db.get('users').find({ "username":username, "password":password})
-        console.log(user)
-        if (!user) { return cb(null, false); }
-        if (user.password != password) { return cb(null, false); }
-        return cb(null, user);
-    }));
+  function(username, password, done) {
+   let user =  db.get("users").find({ username: username, password:password})
+      if (!user) { return done(null, false); }
+      if (user.password != password) { return done(null, false); }
+      return done(null, user);
+  }
+));
 
 
 function syncAllUsers(){
@@ -220,7 +214,7 @@ app.post('/submit', function (req, res) {
 
 // HANDLE LOGIN
 app.post('/login',
-        // passport.authenticate('local', { failureRedirect: '/login' }),
+         passport.authenticate('local', { failureRedirect: '/login' }),
          function (req, res) {
   allUsers = syncAllUsers()
   console.log((allUsers))
