@@ -31,10 +31,11 @@ var passport = require('passport');
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
 passport.use(new Strategy(
     function(username, password, cb) {
-      db.users.findByUsername(username, function(err, user) {
+      db.get('users').find(username, function(err, user) {
+        console.log(user)
         if (err) { return cb(err); }
         if (!user) { return cb(null, false); }
-        if (user.password != password) { return cb(null, false); }
+        if (user.pass != password) { return cb(null, false); }
         return cb(null, user);
       });
     }));
@@ -213,7 +214,7 @@ app.post('/submit', function (req, res) {
 
 // HANDLE LOGIN
 app.post('/login',
-        // passport.authenticate('local', { failureRedirect: '/login' }),
+         passport.authenticate('local', { failureRedirect: '/login' }),
          function (req, res) {
   allUsers = syncAllUsers()
   console.log((allUsers))
