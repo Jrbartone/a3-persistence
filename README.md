@@ -23,4 +23,4 @@ Middleware packages
 ### Design/Evaluation Achievements
 - **Design Achievement 1**: Added a navbar and various other pages.
 - **Design Achievement 2**: Change the heading of the app to reflect current user.
--**Design Achievement 3**: Use alert() to display feedback on submission of login.
+- **Design Achievement 3**: Use alert() to display feedback on submission of login.
