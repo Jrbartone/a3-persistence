@@ -29,17 +29,11 @@ var timeout = require('connect-timeout')
 // MIDDLEWEAR .USE
 app.use(timeout('5s'))
 app.use(express.static('public'));
-//1
 app.use(favicon(path.join(__dirname, 'assets', 'glo.ico')))
 app.use("/assets", assets);
-//2
 app.use(passport.initialize())
-//3
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
-//4
-app.use(haltOnTimedout)
-//5
 
 function haltOnTimedout (req, res, next) {
   if (!req.timedout) next()
@@ -156,7 +150,7 @@ app.get('/create.html', function(request, response) {
 
 
 // TRANSLATION SUBMISSION
-app.post('/submit', function (req, res) {
+app.post('/submit',timeout('5s'),haltOnTimedout, function (req, res) {
   //
   let dataString = ''
   req.on( 'data', function( data ) {
@@ -168,7 +162,7 @@ app.post('/submit', function (req, res) {
     
     switch(body.action){
       case "translate":
-        
+        if (req.timedout) return
         console.log(appdata)
         console.log("translate")
         let payload = {word:body.word, lang: body.lang, translation: "", action: body.action, id:body.id, user:body.user};
