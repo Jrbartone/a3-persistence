@@ -59,6 +59,14 @@ passport.use(new Strategy(
   }
 ));
 
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
+
 
 function syncAllUsers(){
   allUsers = []
@@ -223,20 +231,21 @@ app.post('/submit', function (req, res) {
 // HANDLE LOGIN
 
 app.post('/login', 
-         //passport.authenticate('local',function(err, user, info,){
-        //      console.log(info)
-        //  }),
+         passport.authenticate('local'),
          function (req, res) {
   console.log(req.body)
   allUsers = syncAllUsers()
   console.log((allUsers))
   console.log("handlig log")
-  let dataString = ''
+  /*
+  let dataString = JSON.stringify(req.body)
   req.on( 'data', function( data ) {
       dataString += data 
   })
   req.on( 'end', function() {
-  let data = JSON.parse(dataString)
+  */
+  //let data = JSON.parse(dataString)
+  let data = req.body
   console.log(data)
     if(allUsers.length > 0){
       for (let i = 0; i < allUsers.length; i++){
@@ -263,7 +272,7 @@ app.post('/login',
        res.send("BAD")
        return
     }
-  })
+  //})
 })
 
 
