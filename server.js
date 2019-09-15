@@ -42,6 +42,7 @@ db.defaults({ data: [
     ]
   }).write();
 
+app.use(passport.initialize())
 
 passport.use(new Strategy(
   function(username, password, done) {
